@@ -1,7 +1,7 @@
 export const PROFILE = {
   name: 'Diego Casellas',
-  title: 'Applikationsentwickler 2. Lehrjahr',
-  bio: 'Ich bin Diego, Lernender bei der Swisscom als Informatiker mit Fachrichtung Applikationsentwicklung. Ich bin 17. Jahre alt. Ich treibe sehr gerne Sport und spiele Kanu Polo beim KPZ. Ich bin sehr begeistert von der Informatik. Ich habe mich schon immer für Computer und das Programmieren interessiert. Ich mache meine Arbeit gerne und bin immer interessiert daran neue Dinge zu lernen.  ',
+  title: 'Applikationsentwickler 3. Lehrjahr',
+  bio: 'Ich bin Diego, Lernender bei der Swisscom als Informatiker mit Fachrichtung Applikationsentwicklung. Ich bin 18. Jahre alt. Ich treibe sehr gerne Sport und spiele Kanu Polo beim KPZ. Ich bin sehr begeistert von der Informatik. Ich habe mich schon immer für Computer und das Programmieren interessiert. Ich mache meine Arbeit gerne und bin immer interessiert daran neue Dinge zu lernen.  ',
   photo: '../1_zugeschnitten.png', // Lege dein Foto als public/profile.jpg ab
   linkedin: 'https://www.linkedin.com/in/diego-rafael-casellas-pérez',
   intranet: 'https://neli.swisscom.com/profile/68de4bbc910a46dbc5564d00/detail?activeTab=info', //
