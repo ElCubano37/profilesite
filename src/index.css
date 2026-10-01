@@ -3,18 +3,143 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --foreground: 249 250 251; /* gray-50 */
-  }
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
   }
   body {
     margin: 0;
-    background-color: #0a0a0a;
-    color: #f9fafb;
-    font-family: 'Inter', system-ui, sans-serif;
+    background-color: rgb(var(--paper));
+    color: rgb(var(--ink));
+    font-family: 'Archivo', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
+  ::selection {
+    background: rgb(var(--highlight));
+    color: rgb(var(--cream));
+  }
+  :focus-visible {
+    outline: 3px solid rgb(var(--highlight));
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  /* Rasterpunkte wie im Comic-Druck */
+  .halftone {
+    background-image: radial-gradient(currentColor 1.1px, transparent 1.6px);
+    background-size: 9px 9px;
+  }
+  .halftone-lg {
+    background-image: radial-gradient(currentColor 2px, transparent 2.6px);
+    background-size: 14px 14px;
+  }
+
+  /* Papier-Hintergrund mit leichtem Raster */
+  .paper-bg {
+    background-color: rgb(var(--paper));
+    background-image: radial-gradient(rgb(var(--ink) / 0.09) 1px, transparent 1.4px);
+    background-size: 7px 7px;
+  }
+
+  /* Dicke Comic-Schrift: Kontur und versetzter Schatten nur über text-shadow,
+     damit die Füllfarbe in allen Browsern (auch Safari) sichtbar bleibt.
+     Die Schattenfarbe lässt sich mit --title-shadow pro Element ändern. */
+  .title-ink {
+    text-shadow:
+      2.5px 0.0px 0 rgb(var(--ink)),
+      2.31px 0.96px 0 rgb(var(--ink)),
+      1.77px 1.77px 0 rgb(var(--ink)),
+      0.96px 2.31px 0 rgb(var(--ink)),
+      0.0px 2.5px 0 rgb(var(--ink)),
+      -0.96px 2.31px 0 rgb(var(--ink)),
+      -1.77px 1.77px 0 rgb(var(--ink)),
+      -2.31px 0.96px 0 rgb(var(--ink)),
+      -2.5px 0.0px 0 rgb(var(--ink)),
+      -2.31px -0.96px 0 rgb(var(--ink)),
+      -1.77px -1.77px 0 rgb(var(--ink)),
+      -0.96px -2.31px 0 rgb(var(--ink)),
+      -0.0px -2.5px 0 rgb(var(--ink)),
+      0.96px -2.31px 0 rgb(var(--ink)),
+      1.77px -1.77px 0 rgb(var(--ink)),
+      2.31px -0.96px 0 rgb(var(--ink)),
+      6px 6px 0 var(--title-shadow, rgb(var(--ink)));
+  }
+  .title-ink-sm {
+    text-shadow:
+      1.6px 0.0px 0 rgb(var(--ink)),
+      1.39px 0.8px 0 rgb(var(--ink)),
+      0.8px 1.39px 0 rgb(var(--ink)),
+      0.0px 1.6px 0 rgb(var(--ink)),
+      -0.8px 1.39px 0 rgb(var(--ink)),
+      -1.39px 0.8px 0 rgb(var(--ink)),
+      -1.6px 0.0px 0 rgb(var(--ink)),
+      -1.39px -0.8px 0 rgb(var(--ink)),
+      -0.8px -1.39px 0 rgb(var(--ink)),
+      -0.0px -1.6px 0 rgb(var(--ink)),
+      0.8px -1.39px 0 rgb(var(--ink)),
+      1.39px -0.8px 0 rgb(var(--ink)),
+      4px 4px 0 var(--title-shadow, rgb(var(--ink)));
+  }
+
+  /* Schräger Regen wie auf dem Cover */
+  .rain {
+    background-image: repeating-linear-gradient(
+      105deg,
+      transparent 0 38px,
+      rgb(var(--cream) / 0.22) 38px 39px,
+      transparent 39px 83px,
+      rgb(var(--cream) / 0.12) 83px 85px
+    );
+    background-size: 240px 240px;
+    animation: rain 0.9s linear infinite;
+  }
+
+  /* Strahlen hinter dem Titel */
+  .burst {
+    background: repeating-conic-gradient(
+      from 0deg,
+      rgb(var(--cream) / 0.14) 0deg 6deg,
+      transparent 6deg 14deg
+    );
+  }
+
+  /* Zickzack-Streifen wie am rechten Rand des Covers */
+  .zigzag-strip {
+    background: repeating-linear-gradient(
+      -45deg,
+      rgb(var(--highlight)) 0 7px,
+      rgb(var(--primary)) 7px 14px,
+      rgb(var(--tertiary)) 14px 21px,
+      rgb(var(--primary)) 21px 28px
+    );
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+}
+
+@keyframes rain {
+  from { background-position: 0 0; }
+  to { background-position: -64px 240px; }
+}
+
+@keyframes spin-slow {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 60s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rain, .animate-spin-slow { animation: none; }
 }

@@ -1,34 +1,39 @@
 /** @type {import('tailwindcss').Config} */
+
+// Farben kommen aus CSS-Variablen, gesetzt durch das gewählte Farbschema (src/data/themes.ts)
+const v = (name) => `rgb(var(--${name}) / <alpha-value>)`
+const shades = (name) => ({ DEFAULT: v(name), dark: v(`${name}-dark`), light: v(`${name}-light`) })
+
 export default {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
-  darkMode: 'class',
   theme: {
+    // Keine abgerundeten Elemente: alle Radien auf 0
+    borderRadius: { none: '0', DEFAULT: '0' },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Anton', 'Impact', 'Haettenschweiler', 'sans-serif'],
+        sans: ['Archivo', 'system-ui', 'sans-serif'],
       },
       colors: {
-        foreground: 'rgb(var(--foreground) / <alpha-value>)',
+        ink: v('ink'),
+        paper: v('paper'),
+        cream: v('cream'),
+        skin: v('skin'),
+        primary: shades('primary'),
+        secondary: shades('secondary'),
+        tertiary: shades('tertiary'),
+        highlight: shades('highlight'),
+        'on-primary': v('on-primary'),
+        'on-secondary': v('on-secondary'),
+        'on-tertiary': v('on-tertiary'),
+        'on-highlight': v('on-highlight'),
       },
-      animation: {
-        aurora: 'aurora 8s ease-in-out infinite alternate',
-        'blink-cursor': 'blinkCursor 0.75s step-end infinite',
-        'fade-up': 'fadeUp 0.6s ease-out forwards',
-      },
-      keyframes: {
-        aurora: {
-          '0%': { backgroundPosition: '0% 50%', transform: 'scale(1)' },
-          '50%': { backgroundPosition: '100% 50%', transform: 'scale(1.05)' },
-          '100%': { backgroundPosition: '0% 50%', transform: 'scale(1)' },
-        },
-        blinkCursor: {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0' },
-        },
-        fadeUp: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
+      boxShadow: {
+        hard: '6px 6px 0 0 rgb(var(--ink))',
+        'hard-sm': '3px 3px 0 0 rgb(var(--ink))',
+        'hard-lg': '10px 10px 0 0 rgb(var(--ink))',
+        'hard-hl': '4px 4px 0 0 rgb(var(--highlight))',
+        'hard-hl-lg': '8px 8px 0 0 rgb(var(--highlight))',
       },
     },
   },
